@@ -157,4 +157,3 @@ def current_interview_footage(data, clip_timeline):
 
     # Should only get here if no suitable clip has been found
     raise TypeError("No clip has been found")
-

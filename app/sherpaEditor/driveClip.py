@@ -88,6 +88,17 @@ def render_video(uid, html_render=False):
                 except KeyError:
                     interviewClipCaption = 0
 
+                """ 
+                Start time is the start time of the Sub Clipped segment of the interview clip video
+                Plus the difference between the current time on the top timeline and the starting time for this clip
+                Example:
+                    Blank starts at 10 seconds, and is 3 seconds long
+                    Interview clip starts at 7 seconds, and is 10 seconds long
+                    Interview clip should be heard for all 10 seconds from 7-17 on the video
+                    But should only be seen from seconds 10-13 on the video
+                    Which translates to seconds 3-6 on the clip itself
+                    subClipStart is 3, and subClipEnd is 6 in this case
+                """
                 subClipStart = (interviewClipMeta.get('startTime')) + dif
                 subClipEnd = (interviewClipMeta.get('startTime')) + dif + (
                         (clipData.get('endTime')) - (clipData.get('startTime'))
@@ -141,15 +152,22 @@ def render_video(uid, html_render=False):
         finished_audio = top_audio
 
     # Concatenate the video files together
-    finished_video = concatenate_videoclips(video_list)
+    # TODO: Method is currently set at 'compose', which may end up making the whole video look off
+    #   Delete or set to 'chain'
+    finished_video = concatenate_videoclips(video_list, method="compose")
     finished_video = finished_video.set_audio(finished_audio)
 
     # Returns html render of video if true
     if html_render is True:
+        print("Creating html preview for project.")
         low_quality = finished_video.resize(0.5)
         preview_runtime = low_quality.duration
-        print(len)
-        return html_tools.html_embed(low_quality, maxduration=preview_runtime+5, rd_kwargs={'fps': 15, 'bitrate': '300k'})
+        # the +5 is to stop a small issue with regards to previewing a video longer than 60 seconds
+        return html_tools.html_embed(
+            low_quality,
+            maxduration=preview_runtime+5,
+            rd_kwargs={'fps': 15, 'bitrate': '300k'}
+        )
 
     # Otherwise full renders
     else:

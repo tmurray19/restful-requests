@@ -16,7 +16,7 @@ class Config(object):
     # or statements are used as a fallback
     SECRET_KEY = os.environ.get('SECRET_KEY') or "WgnYVzwgwF7Alu1B3DehuO-C-QoKcBitsHqpiFi1cRE"
     # Attach directory as well (Though neither of these are necessary)
-    DIR_LOCATION = os.environ.get('DIR_LOCATION') or "G:/project"
+    DIR_LOCATION = os.environ.get('DIR_LOCATION') or "D:/project"
     # Defining storage name and key
     STORAGE_ACCOUNT_NAME = os.environ.get('STORAGE_ACCOUNT_NAME') or 'csae48d5df47deax41bcxbaa'
     STORAGE_ACCOUNT_KEY = os.environ.get('STORAGE_ACCOUNT_KEY') or \
