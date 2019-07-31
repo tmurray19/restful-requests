@@ -1,5 +1,4 @@
 import moviepy.editor as myp
-from app.sherpaEditor import sherpaUtils
 import os
 from app import app
 

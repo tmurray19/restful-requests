@@ -1,6 +1,5 @@
 import os
-import app.blob.azureFileTransfer as azureFileTransfer
-import json
+import app.fileShare.azureFileTransfer as azureFileTransfer
 from app import app
 
 
@@ -73,10 +72,7 @@ def open_clip_meta_data(data, clip):
     """
     Opens and reads the metadata from a given JSON file name
     :param clip: string --> Name of clip
-    * Depreciated
-    :param proj_file_name: string  --> JSON file name
-    :param user: string --> Name of user accessing directory
-    * Depreciated
+    :param data: dict --> The JSON data read as a dict
     :return: clip_data: dict  --> The clip data stored in JSON file
     It returns the first element of the meta section for a given clip in the JSON file,
     which is the entire meta data for the given file
@@ -103,8 +99,7 @@ def open_clip_caption_data(data, clip):
     Opens and reads the caption data from a given JSON file name
     Looks for an 'edit' list in the JSON file
     :param clip: string --> Name of clip
-    :param proj_file_name: string  --> JSON file name
-    :param user: string --> Name of user accessing directory
+    :param data: dict --> The JSON data read as a dict
     :return: caption_data: dict  --> The caption data stored in JSON file
     Searches specifically for the caption section in the edit data
     """
@@ -118,73 +113,15 @@ def open_clip_caption_data(data, clip):
         return 0
 
 
-# Creating folders for files
-def dir_create(relative_path='', user=''):
-    """
-    Creates 3 directories for various files
-    Passes if any one of these directories already exists
-    """
-    try:
-        os.mkdir(os.path.join(relative_path, user, 'json/'))
-        os.mkdir(os.path.join(relative_path, user, 'clips/'))
-        os.mkdir(os.path.join(relative_path, user, 'edited/'))
-        print("Folders successfully initialised")
-    except FileExistsError:
-        print("One of these folders already exists.")
-
-
 # Gives the name of the overall project, passing its filename through
 def get_proj_name(data):
     proj_name = data.get('Name')
     return proj_name
 
 
-# return full directories for each folder
-def get_edit_dir(relative_path='', user=''):
-    try:
-        edit_dir = os.path.join(
-            relative_path,
-            user,
-            'edited/'
-        )
-        return edit_dir
-    except FileNotFoundError:
-        print("Edited folder not found.")
-        return 0
-
-
-# Written as concession for having folders in different locations to py files
-def get_json_dir(relative_path='', user=''):
-    try:
-        json_dir = os.path.join(
-            relative_path,
-            user,
-            'json/'
-        )
-        return json_dir
-    except FileNotFoundError:
-        print("JSON folder not found.")
-        return 0
-
-
-# May or may not be necessary, written for the case that files are stored elsewhere
-def get_clips_dir(relative_path='', user=''):
-    try:
-        clips_dir = os.path.join(
-            relative_path,
-            user,
-            'clips/'
-        )
-        return clips_dir
-    except FileNotFoundError:
-        print("Clips folder not found.")
-        return 0
-
-
 # Get the directory attached to the container
-def get_attach_dir():
-    app.config['DIR_LOCATION']
-    pass
+def get_attach_dir(uid):
+    return os.path.join(app.config['DIR_LOCATION'], uid)
 
 
 # Sets caption duration to clip duration if one is longer than the other
@@ -196,19 +133,10 @@ def max_duration(caption_duration, clip_duration):
 
 # Gives length of a given clip
 def calculate_clip_length(clip_data):
-    #has_duration = (clip_data.get('clipType') == "Blank" or clip_data.get('clipType') == "Image")
-
-    # If it doesn't have a duration, do calculations
-    #if has_duration is False:
-
     start = clip_data.get('startTime')
     end = clip_data.get('endTime')
 
     return end - start
-
-    # If it does, just return the duration
-    #else:
-        #return clip_data.get('duration')
 
 
 # Find currently playing interview footage, and returns the JSON item
