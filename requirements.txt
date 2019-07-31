@@ -51,4 +51,5 @@ Werkzeug==0.15.5
 wrapt==1.11.2
 WTForms==2.2.1
 youtube-dl==2019.6.27
-azure-storage-file
+azure-storage-file==2.0.1
+azure==4.0.0

@@ -41,6 +41,7 @@ def render_video(uid, html_render=False):
         if clipType == "CutAway":
             print(clipName + " is a cutaway.")
             clip = generateEffects.generate_clip(clip_data=clipData, user=uid)
+            # Insert audio using insert sort
             top_audio.insert(clipData.get('order'), clip.audio)
 
             # Look for the clip caption data
@@ -67,7 +68,7 @@ def render_video(uid, html_render=False):
                 # get interview footage that should be currently playing, as well as what time it should be playing at
                 blankInterviewClip, interviewStartTime = sherpaUtils.current_interview_footage(
                     clip_timeline=mainTimeline,
-                    data=uid
+                    data=json_file
                 )
 
                 # Difference between the main timeline and the starting time line for clip
@@ -166,7 +167,10 @@ def render_video(uid, html_render=False):
         return html_tools.html_embed(
             low_quality,
             maxduration=preview_runtime+5,
-            rd_kwargs={'fps': 15, 'bitrate': '300k'}
+            rd_kwargs={
+                'fps': 15,
+                'bitrate': '300k'
+            }
         )
 
     # Otherwise full renders
@@ -180,3 +184,6 @@ def render_video(uid, html_render=False):
                 sherpaUtils.get_proj_name(data=json_file) + "_edited.mp4"
             )
         )
+
+
+# render_video("1029")

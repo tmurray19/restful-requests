@@ -2,9 +2,11 @@ import moviepy.editor as myp
 import os
 from app import app
 
+# TODO: Update string in Config file
 silence_path = os.path.join(app.config['DIR_LOCATION'], app.config['RESOURCE_PATH'], app.config['SILENCE'])
 attach_dir = app.config['DIR_LOCATION']
 
+# TODO: Update positions 0-2
 positions = {
     0: ("left", "top"),  # Top Left
     1: ("right", "top"),  # Top Right
@@ -70,7 +72,7 @@ def generate_clip(clip_data, user, start=None, end=None):
     # Reduce volume defined in data
     clip = clip.volumex(clip_data.get('audioLevel'))
 
-    clip = clip.resize((1920, 1080))
+    clip = clip.resize(height=1080, width=1920)
     print("clip length: {}".format(clip.duration))
 
     if clip.audio is None:

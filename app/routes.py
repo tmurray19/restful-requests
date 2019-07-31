@@ -18,11 +18,7 @@ class RenderVideo(Resource):
 @api.route('/preview/<string:proj_id>')
 class PreviewVideo(Resource):
     def get(self, proj_id):
-        render_template(
-            'proj_render.html',
-            title="In browser preview",
-            project_preview=driveClip.render_video(
+        return driveClip.render_video(
                 uid=proj_id,
                 html_render=True
             )
-        )
