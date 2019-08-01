@@ -35,21 +35,11 @@ def generate_blank(clip_data):
         duration=dur
     )
 
-    # Can be removed later
-    text_caption = myp.TextClip(
-        txt="This is a blank",
-        color="White",
-        fontsize=72
-    )
-
-    text_caption = text_caption.set_position('center').set_duration(dur)
-
-    blank_clip = myp.CompositeVideoClip([blank_clip, text_caption])
-
     audio = myp.AudioFileClip(silence_path)
 
     blank_clip = blank_clip.set_audio(audio.set_duration(dur))
 
+    print("Blank generated")
     return blank_clip
 
 
@@ -72,7 +62,7 @@ def generate_clip(clip_data, user, start=None, end=None):
     # Reduce volume defined in data
     clip = clip.volumex(clip_data.get('audioLevel'))
 
-    clip = clip.resize(height=1080, width=1920)
+    #clip = clip.resize(height=1080, width=1920)
     print("clip length: {}".format(clip.duration))
 
     if clip.audio is None:

@@ -1,8 +1,7 @@
 from moviepy.editor import CompositeVideoClip, concatenate_videoclips, concatenate_audioclips, CompositeAudioClip
 from moviepy.video.io import html_tools
-from app.sherpaEditor import generateEffects
-from app.sherpaEditor import sherpaUtils
-import os
+from app.sherpaEditor import generateEffects, sherpaUtils
+import os, gc
 from app import app
 
 # TODO: This needs to be changed in the app.config to
@@ -11,6 +10,7 @@ attach_dir = os.path.abspath(app.config['DIR_LOCATION'])
 
 
 def render_video(uid, html_render=False):
+    gc.collect()
     """Needs to check for a project_id (user)
     Set html_render to True if you want this function to return html embed code for a preview"""
     # Finished timeline video
@@ -27,7 +27,6 @@ def render_video(uid, html_render=False):
 
     # Automated all the clips
     for clipName in json_file['CutAwayFootage']:
-
         # Testing printout
         print(clipName + ":")
         print("mainTimeline: {}".format(mainTimeline))
@@ -134,7 +133,7 @@ def render_video(uid, html_render=False):
 
         mainTimeline += clip.duration
         video_list.insert(clipData.get('order')-1, clip)
-
+    
     print(video_list)
 
     # Create audio from the interview Footage
@@ -145,7 +144,6 @@ def render_video(uid, html_render=False):
 
     try:
         bottom_audio = concatenate_audioclips(bottom_audio)
-
         # Composite the sound together
         finished_audio = CompositeAudioClip([top_audio, bottom_audio])
     # In case no bottom audio is found
@@ -157,7 +155,8 @@ def render_video(uid, html_render=False):
     #   Delete or set to 'chain'
     finished_video = concatenate_videoclips(video_list, method="compose")
     finished_video = finished_video.set_audio(finished_audio)
-
+    
+    
     # Returns html render of video if true
     if html_render is True:
         print("Creating html preview for project.")
@@ -165,13 +164,14 @@ def render_video(uid, html_render=False):
         preview_runtime = low_quality.duration
         # the +5 is to stop a small issue with regards to previewing a video longer than 60 seconds
         return html_tools.html_embed(
-            low_quality,
-            maxduration=preview_runtime+5,
-            rd_kwargs={
-                'fps': 15,
-                'bitrate': '300k'
-            }
-        )
+                low_quality,
+                maxduration=preview_runtime+5,
+                rd_kwargs={
+                    'fps': 15,
+                    'bitrate': '300k'
+                }
+            )
+
 
     # Otherwise full renders
     else:
@@ -184,6 +184,3 @@ def render_video(uid, html_render=False):
                 sherpaUtils.get_proj_name(data=json_file) + "_edited.mp4"
             )
         )
-
-
-# render_video("1029")
