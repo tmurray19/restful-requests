@@ -1,5 +1,6 @@
 from app import app
 import json
+import os
 from azure.storage.file import FileService
 
 
@@ -33,7 +34,7 @@ def get_json(proj_id, file_service):
 
     azure_file = file_service.get_file_to_text(
         app.config['SHARE_NAME'],
-        proj_id,
+        os.path.join("videos", proj_id),
         app.config['PROJECT_NAME']
     ).content
 

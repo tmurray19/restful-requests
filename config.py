@@ -20,7 +20,7 @@ class Config(object):
     STORAGE_ACCOUNT_KEY = os.environ.get('STORAGE_ACCOUNT_KEY') or \
         'iUTL5cLSDTObfUliySlqjT4x1dfCQ1U7l7zuaZrPEwhGIHnHPKWfYuFrq16cCjFUS/122mcwJpdseC9JI6mSGA=='
     # TODO: When deploying, remove 'testingazure' for the commented out Share Name
-    SHARE_NAME = os.environ.get('SHARE_NAME') or 'testingazure'  # 'cs-william-squarev-media-10037ffe909d3982'
+    SHARE_NAME = os.environ.get('SHARE_NAME') or 'cs-william-squarev-media-10037ffe909d3982' #'testingazure'  # 
     # Defining name of json file containing edits
     PROJECT_NAME = os.environ.get('PROJECT_NAME') or 'FinalSubclipJson.json'
     # TODO: The location of the resources (the silence mp3, default templates, etc.) may change
