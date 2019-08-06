@@ -28,3 +28,4 @@ class Config(object):
     RESOURCE_PATH = os.environ.get('RESOURCE_PATH') or 'resource'
     # Name of silence mp3
     SILENCE = os.environ.get('SILENCE') or 'silence.mp3'
+    QUEUE_FOLDER = os.environ.get('QUEUE_FOLDER') or 'renderQueue'
