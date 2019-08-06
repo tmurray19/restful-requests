@@ -23,3 +23,5 @@ def create_queue(proj_id):
     # Open and write to file
     with open(join(app.config['DIR_LOCATION'], proj_id, proj_id + "_queue_status.json"), 'w') as outfile:
         dump(queue_info, outfile)
+    
+    print("Queue file written to {}".format(join(app.config['DIR_LOCATION'], proj_id, proj_id + "_queue_status.json")))

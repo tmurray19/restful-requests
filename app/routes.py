@@ -12,4 +12,5 @@ class RenderVideo(Resource):
         p = Process(target=queue_service.create_queue, args=(proj_id,))
         p.start()
         p.join()
+        print("Process complete")
         #p.close()
