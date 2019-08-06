@@ -2,25 +2,14 @@ from flask import render_template
 from flask_restplus import Api, Resource
 from app import app
 from multiprocessing import Process
-from app.sherpaEditor import driveClip
-
+from app.queueMaker import queue_service
 api = Api(app=app)
 
 
 @api.route('/render/<string:proj_id>')
 class RenderVideo(Resource):
-    def get(self, proj_id):
-        p = Process(target=driveClip.render_video, args=(proj_id,))
-        p.start()
-        p.join()
-        #p.close()
-
-
-
-@api.route('/preview/<string:proj_id>')
-class PreviewVideo(Resource):
-    def get(self, proj_id):
-        p = Process(target=driveClip.render_video, args=(proj_id, True,))
+    def  get(self, proj_id):
+        p = Process(target=queue_service.create_queue, args=(proj_id,))
         p.start()
         p.join()
         #p.close()
