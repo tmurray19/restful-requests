@@ -1,6 +1,24 @@
 # Flask app
+
+
 ## This version tries to implement the config file, so that all the common calls are defined in one succint location
+
+## The segment branch is an attempt of divying up the tasks of the render service
+```
+Before it was
+Flask Webapp --> (call made to render video) --> moviepy render
+```
+
+
+```
+Now it is
+Flask Webapp --> (call made) --> JSON file written with information --> Watchdog service looks for status json --> (calls moviepy render service) --> moviepy render
+```
+
 Flask app implementing Video Sherpa Editor
+
+
+
 
 ## Walk through:
     - User is authenticated elsewhere, with project id
