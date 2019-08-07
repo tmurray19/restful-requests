@@ -16,7 +16,7 @@ class RenderVideo(Resource):
         #p.close()
 
 
-@api.route('/sherpatemplatestatus/<string:projectid>')
+@api.route('/sherpatemplatestatus/<string:proj_id>')
 class RenderVideoStatus(Resource):
     def get(self, proj_id):
         p = Process(target=queue_service.get_queue_status, args=(proj_id,))

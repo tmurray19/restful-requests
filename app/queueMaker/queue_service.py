@@ -31,8 +31,8 @@ def create_queue(proj_id):
 def get_queue_status(proj_id):
     try:
         # Create The JSON File
-        json_file = join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")
-        with open(json_file) as json_file:
+        queue_loc = join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")
+        with open(queue_loc) as json_file:
             json_data = load(json_file)
             status = json_data['status']
 
