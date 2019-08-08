@@ -15,12 +15,14 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or "WgnYVzwgwF7Alu1B3DehuO-C-QoKcBitsHqpiFi1cRE"
     # TODO: Change this location to the azure file share mount location
     DIR_LOCATION = os.environ.get('DIR_LOCATION') or "/mnt/csae48d5df47deax41bcxbaa/videos"  
+    LOGS_LOCATION = os.environ.get('LOGS_LOCATION') or "/mnt/csae48d5df47deax41bcxbaa/logs" 
+    FLASK_LOGS = os.environ.get('FLASK_LOGS') or "render_flask"  
     # Defining storage name and key
     STORAGE_ACCOUNT_NAME = os.environ.get('STORAGE_ACCOUNT_NAME') or 'csae48d5df47deax41bcxbaa'
     STORAGE_ACCOUNT_KEY = os.environ.get('STORAGE_ACCOUNT_KEY') or \
         'iUTL5cLSDTObfUliySlqjT4x1dfCQ1U7l7zuaZrPEwhGIHnHPKWfYuFrq16cCjFUS/122mcwJpdseC9JI6mSGA=='
     # TODO: When deploying, remove 'testingazure' for the commented out Share Name
-    SHARE_NAME = os.environ.get('SHARE_NAME') or 'cs-william-squarev-media-10037ffe909d3982' #'testingazure'  # 
+    SHARE_NAME = os.environ.get('SHARE_NAME') or 'cs-william-squarev-media-10037ffe909d3982' 
     # Defining name of json file containing edits
     PROJECT_NAME = os.environ.get('PROJECT_NAME') or 'FinalSubclipJson.json'
     # TODO: The location of the resources (the silence mp3, default templates, etc.) may change

@@ -20,11 +20,17 @@ def create_queue(proj_id):
         "status": False,
         "otherInfo": "None"
     }
-    # Open and write to file
-    with open(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json"), 'w') as outfile:
-        dump(queue_info, outfile)
+    try:
+        # Open and write to file
+        with open(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json"), 'w') as outfile:
+            dump(queue_info, outfile)
     
-    print("Queue file written to {}".format(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
+        print("Queue file written to {}".format(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
+        return 1
+    except Exception as e:
+        print(e)
+        print("An error has occured")
+        return 0
 
 
 
@@ -41,6 +47,8 @@ def get_queue_status(proj_id):
         status = str(e)
 
     if status == True:
-        return ("Job complete, Video has been rendered.")
+        #logging.log("Project has been rendered")
+        return 1
     else:
-        return ("Job incomplete, Video has not been rendered yet.")
+        #logging.log("Project has not been rendered")
+        return 0
