@@ -6,10 +6,10 @@ from app.queueMaker import queue_service
 api = Api(app=app)
 
 
-@api.route('/render/<string:proj_id>')
+@api.route('/render/<string:proj_id>&compressed_render=<int:compressed_render>')
 class RenderVideo(Resource):
-    def  get(self, proj_id):
-        p = Process(target=queue_service.create_queue, args=(proj_id,))
+    def get(self, proj_id, compressed_render):
+        p = Process(target=queue_service.create_queue, args=(proj_id,compressed_render,))
         p.start()
         p.join()
         print("Process complete")

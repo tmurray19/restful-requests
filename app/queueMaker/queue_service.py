@@ -3,7 +3,7 @@ from json import dump
 from os.path import join
 from app import app
 
-def create_queue(proj_id):
+def create_queue(proj_id, compressed_render):
     # Define data points
     """
     ID: int --> Project ID
@@ -12,12 +12,15 @@ def create_queue(proj_id):
     status: Bool --> True for completed, False for not
     otherInfo: String --> Any error messages
     """
+    compress_bool = True if compressed_render==1 else False
+
     # Create json info
     queue_info = {
         "id": proj_id,
         "dateRequested": datetime.now().strftime("%d-%b-%Y (%H:%M:%S)"),
         "dateCompleted": "",
         "status": False,
+        "compressedRender": compress_bool,
         "otherInfo": ""
     }
     # Open and write to file
