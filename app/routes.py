@@ -11,6 +11,7 @@ api = Api(app=app)
 
 
 @api.route('/render/<string:proj_id>&compressed_render=<int:compressed_render>')
+@api.route('/render/<string:proj_id>', defaults={'compressed_render': 0})
 class RenderVideo(Resource):
     def get(self, proj_id, compressed_render):
         logging.debug("Creating render request for project '{}' with compress render of '{}'".format(proj_id, compressed_render))
