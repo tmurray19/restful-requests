@@ -2,8 +2,9 @@ from datetime import datetime
 from json import dump, load
 from os.path import join
 from app import app
+import logging
 
-def create_queue(proj_id):
+def create_queue(proj_id, compressed_render):
     # Define data points
     """
     ID: int --> Project ID
@@ -12,12 +13,14 @@ def create_queue(proj_id):
     status: Bool --> True for completed, False for not
     otherInfo: String --> Any error messages
     """
+    compress_bool = True if compressed_render==1 else False
     # Create json info
     queue_info = {
         "id": proj_id,
         "dateRequested": datetime.now().strftime("%d-%b-%Y (%H:%M:%S)"),
         "dateCompleted": "TBA",
         "status": False,
+        "compressedRender": compress_bool,
         "otherInfo": "None"
     }
     try:
@@ -25,11 +28,12 @@ def create_queue(proj_id):
         with open(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json"), 'w') as outfile:
             dump(queue_info, outfile)
     
-        print("Queue file written to {}".format(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
+        logging.debug("Queue file written to {}".format(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
+        
         return 1
     except Exception as e:
-        print(e)
-        print("An error has occured")
+        logging.error("An Exception has occured:")
+        logging.error(e)
         return 0
 
 
@@ -44,11 +48,12 @@ def get_queue_status(proj_id):
 
     
     except Exception as e:
-        status = str(e)
+        logging.debug(e)
+        return -1
 
     if status == True:
-        #logging.log("Project has been rendered")
+        logging.debug("Project has been rendered")
         return 1
     else:
-        #logging.log("Project has not been rendered")
+        logging.debug("Project has not been rendered")
         return 0
