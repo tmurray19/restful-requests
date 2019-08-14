@@ -25,10 +25,10 @@ def create_queue(proj_id, compressed_render):
     }
     try:
         # Open and write to file
-        with open(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json"), 'w') as outfile:
+        with open(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json"), 'w') as outfile:
             dump(queue_info, outfile)
     
-        logging.debug("Queue file written to {}".format(join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
+        logging.debug("Queue file written to {}".format(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
         
         return 1
     except Exception as e:
@@ -41,7 +41,7 @@ def create_queue(proj_id, compressed_render):
 def get_queue_status(proj_id):
     try:
         # Create The JSON File
-        queue_loc = join(app.config['DIR_LOCATION'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")
+        queue_loc = join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")
         with open(queue_loc) as json_file:
             json_data = load(json_file)
             status = json_data['status']

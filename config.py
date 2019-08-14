@@ -13,9 +13,10 @@ class Config(object):
     # Secret key used for verification
     # or statements are used as a fallback
     SECRET_KEY = os.environ.get('SECRET_KEY') or "WgnYVzwgwF7Alu1B3DehuO-C-QoKcBitsHqpiFi1cRE"
-    # TODO: Change this location to the azure file share mount location
-    DIR_LOCATION = os.environ.get('DIR_LOCATION') or "/mnt/csae48d5df47deax41bcxbaa/videos"      
-    LOGS_LOCATION = os.environ.get('LOGS_LOCATION') or "/mnt/csae48d5df47deax41bcxbaa/logs" 
+    BASE_DIR = os.environ.get('BASE_DIR') or "/mnt/csae48d5df47deax41bcxbaa"
+    VIDS_LOCATION = os.environ.get('VIDS_LOCATION') or "videos"
+    QUEUE_LOCATION = os.environ.get('QUEUE_LOCATION') or 'renderQueue'
+    LOGS_LOCATION = os.environ.get('LOGS_LOCATION') or "logs" 
     WATCHER_LOGS = os.environ.get('WATCHER_LOG') or 'renderWatcher'
     RENDER_LOGS = os.environ.get('RENDER_LOG') or 'renderService'
     FLASK_LOGS = os.environ.get('FLASK_LOG') or 'renderFlask'
