@@ -11,9 +11,9 @@ api = Api(app=app)
 
 
 @api.route('/render/<string:proj_id>&compressed_render=<int:compressed_render>')
-@api.route('/render/<string:proj_id>', defaults={'compressed_render': 0})
+@api.route('/render/<string:proj_id>')
 class RenderVideo(Resource):
-    def get(self, proj_id, compressed_render):
+    def get(self, proj_id, compressed_render=0):
         logging.debug("Creating render request for project '{}' with compress render of '{}'".format(proj_id, compressed_render))
         queue_create = queue_service.create_queue(proj_id, compressed_render)
         return queue_create
