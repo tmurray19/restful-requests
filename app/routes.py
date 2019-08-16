@@ -19,7 +19,7 @@ class RenderVideo(Resource):
         return queue_create
 
 
-@api.route('/sherpatemplatestatus/<string:proj_id>')
+@api.route('/renderstatus/<string:proj_id>')
 class RenderVideoStatus(Resource):
     def get(self, proj_id):
         logging.debug("Querying for render status of '{}'".format(proj_id))
