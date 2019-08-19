@@ -27,8 +27,9 @@ class Config(object):
     PROJECT_NAME = os.environ.get('PROJECT_NAME') or 'FinalSubclipJson.json'
 
     # Refresh locations
-    DBCONNSERV = os.environ.get('DBCONNSERV') or 'DEV\SQLEXPRESS'
+
+    EDITORLOC = 'https://dev.squarev.mobi/videos/'
+    DBCONNSERV = os.environ.get('DBCONNSERV') or 'DEV//SQLEXPRESS'
     DBASE = os.environ.get('DBASE') or 'ShowWorx'
     DBBUUID = os.environ.get('DBBUUID') or 'sqv-odbc'
     DBPW = os.environ.get('DBPW') or 'sqvdev@$365'
-    EDITORLOC = 'https://dev.squarev.mobi/videos/'
