@@ -4,6 +4,7 @@ from app import app
 from multiprocessing import Process
 from app.queueMaker import queue_service
 from datetime import datetime
+from app.fileShare import null_link
 import os
 import logging
 
