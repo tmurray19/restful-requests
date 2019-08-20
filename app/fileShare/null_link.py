@@ -7,11 +7,9 @@ from app import app
 import pyodbc
 
 
-def null_project_link(proj_id):
-    """ Set nullify to true to send a null link to the database"""
+def null_project_li(proj_id):
+    """Sends a null link to the database"""
     try:
-        query = 'UPDATE project SET FinalViedo_URL = null , Soc_FinalViedo_URL =  null ' \
-                +' WHERE [id]=' + str(proj_id)
 
         # Set the Connection Parameters
         params = urllib.parse.quote_plus(
@@ -28,9 +26,8 @@ def null_project_link(proj_id):
         s = Session()
 
         # Build the SQL Query
-        query = 'UPDATE project SET FinalViedo_URL = \''+app.config['EDITORLOC'] + str(proj_id) + '/' \
-                + str(proj_id) + '_edited.mp4\', Soc_FinalViedo_URL = \'https://dev.squarev.mobi/videos/' \
-                + str(proj_id) + '/' + str(proj_id) + '_edited.mp4\' WHERE [id]=' + str(proj_id)
+        query = 'UPDATE project SET FinalViedo_URL = Processing , Soc_FinalViedo_URL = Processing ' \
+                +' WHERE [id]=' + str(proj_id)
         
         # Execute & Commit
         
