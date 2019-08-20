@@ -7,7 +7,7 @@ from app import app
 import pyodbc
 
 
-def null_project_li(proj_id):
+def null_project_link(proj_id):
     """Sends a null link to the database"""
     try:
 
