@@ -7,13 +7,11 @@ from app import app
 import pyodbc
 
 
-def updateproject(proj_id, nullify=False):
+def null_project_link(proj_id):
     """ Set nullify to true to send a null link to the database"""
     try:
         query = 'UPDATE project SET FinalViedo_URL = null , Soc_FinalViedo_URL =  null ' \
-                +' WHERE [id]=' + str(proj_id) if nullify else 'UPDATE project SET FinalViedo_URL = \''+app.config['EDITORLOC'] + str(proj_id) + '/' \
-                + str(proj_id) + '_edited.mp4\', Soc_FinalViedo_URL = \'https://dev.squarev.mobi/videos/' \
-                + str(proj_id) + '/' + str(proj_id) + '_edited.mp4\' WHERE [id]=' + str(proj_id)
+                +' WHERE [id]=' + str(proj_id)
 
         # Set the Connection Parameters
         params = urllib.parse.quote_plus(
