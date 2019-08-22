@@ -7,8 +7,11 @@ from app.fileShare import null_link
 
 def create_queue(proj_id, compressed_render, chunk_render):
     # Null link in database
+    
+    """    
     null_status = null_link.null_project_link(proj_id)
     logging.debug("Null status: {}".format(null_status))
+    """
 
     # Define data points
     """
@@ -19,7 +22,7 @@ def create_queue(proj_id, compressed_render, chunk_render):
     otherInfo: String --> Any error messages
     """
     compress_bool = True if compressed_render==1 else False
-    chunk_book = True if chunk_render==1 else False
+    chunk_bool = True if chunk_render==1 else False
     # Create json info
     queue_info = {
         "id": proj_id,
@@ -27,7 +30,8 @@ def create_queue(proj_id, compressed_render, chunk_render):
         "dateCompleted": "TBA",
         "status": False,
         "compressedRender": compress_bool,
-        "chunkRender": chunk_book,
+        "chunkRender": chunk_bool,
+        "correctlyRendered": 0,
         "otherInfo": "None"
     }
     try:
