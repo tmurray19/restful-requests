@@ -15,8 +15,8 @@ def upload_video(id, title="Default title", description="Default Description", c
     video_keywords = keywords
     video_privacy = PRIVACY_OPTIONS[privacy_status]
 
-    os.system('python \
-        N:/restful-sherpa-alt/app/fileShare/upload_video.py \
+    os.system('python3 \
+        upload_video.py \
         --file="{}" \
         --title="{}" \
         --description="{}" \
