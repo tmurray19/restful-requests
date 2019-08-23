@@ -36,6 +36,8 @@ def show_privacy_statement():
 def show_terms():
     return "This is our terms"
 
-@app.route('/youtubeauth')
-def youtube_redirect():
-    return youtube_connect.upload_video("N:/test.mp4")
+#@app.route('/youtubeauth')
+@api.route('/youtubeauth/<string:proj_id>')
+class UploadYoutube(Resource):
+    def get(self, proj_id):
+        return youtube_connect.upload_video(proj_id)

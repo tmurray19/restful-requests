@@ -1,5 +1,5 @@
 import os
-from app import app
+from config import Config
 
 def upload_video(id, title="Default title", description="Default Description", category="22", keywords=["videosherpa"], privacy_status = 0):
     """
@@ -8,7 +8,7 @@ def upload_video(id, title="Default title", description="Default Description", c
     
     PRIVACY_OPTIONS = ("public", "private", "unlisted")
     
-    file_location = os.path.join(app.config['BASE_DIR'], app.config['BASE_DIR'], id+"_edited.mp4")
+    file_location = os.path.join(Config.BASE_DIR, Config.VIDS_LOCATION, id+"_edited.mp4")
     video_title = title
     video_description = description
     video_category = category
@@ -16,7 +16,7 @@ def upload_video(id, title="Default title", description="Default Description", c
     video_privacy = PRIVACY_OPTIONS[privacy_status]
 
     os.system('python3 \
-        /home/sherpa-render/Flask-app/app/fileShare/upload_video.py \
+        app/fileShare/upload_video.py \
         --file="{}" \
         --title="{}" \
         --description="{}" \
