@@ -4,7 +4,7 @@ from app import app
 from multiprocessing import Process
 from app.queueMaker import queue_service
 from datetime import datetime
-from app.fileShare import null_link
+from app.fileShare import youtube_connect
 import os
 import logging
 
@@ -27,3 +27,15 @@ class RenderVideoStatus(Resource):
         logging.debug("Querying for render status of '{}'".format(proj_id))
         queue_status = queue_service.get_queue_status(proj_id)
         return queue_status
+
+@app.route('/privacy')
+def show_privacy_statement():
+    return "This is our privacy statement"
+
+@app.route('/terms')
+def show_terms():
+    return "This is our terms"
+
+@app.route('/youtubeauth')
+def youtube_redirect():
+    return youtube_connect.upload_video("N:/test.mp4")

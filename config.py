@@ -33,3 +33,7 @@ class Config(object):
     DBASE = os.environ.get('DBASE') or 'ShowWorx'
     DBBUUID = os.environ.get('DBBUUID') or 'sqv-odbc'
     DBPW = os.environ.get('DBPW') or 'sqvdev@$365'
+
+
+    # Youtube Upload Variables
+    CLIENT_SECRETS_FILE = "client_secrets.json"
