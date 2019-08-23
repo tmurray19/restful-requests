@@ -15,15 +15,15 @@ def upload_video(id, title="Default title", description="Default Description", c
     video_keywords = keywords
     video_privacy = PRIVACY_OPTIONS[privacy_status]
 
-    os.system('python3 \
-        app/fileShare/upload_video.py \
-        --file="{}" \
-        --title="{}" \
-        --description="{}" \
-        --category="{}" \
-        --keywords="{}" \
-        --privacyStatus="{}" \
-        --noauth_local_webserver'.format(
+    run = "python3"\
+    "app/fileShare/upload_video.py"\
+    '--file="{}" '\
+    '--title="{}" '\
+    '--description="{}" '\
+    '--category="{}" '\
+    '--keywords="{}" '\
+    '--privacyStatus="{}"'\
+    "--noauth_local_webserver".format(
             file_location,
             video_title,
             video_description,
@@ -31,7 +31,7 @@ def upload_video(id, title="Default title", description="Default Description", c
             video_keywords,
             video_privacy
         )
-    )
 
-    return "test"
+    os.system(run)
 
+    return "Uploading video to YouTube..."
