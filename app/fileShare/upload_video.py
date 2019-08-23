@@ -44,7 +44,7 @@ RETRIABLE_STATUS_CODES = [500, 502, 503, 504]
 #   https://developers.google.com/youtube/v3/guides/authentication
 # For more information about the client_secrets.json file format, see:
 #   https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
-CLIENT_SECRETS_FILE = os.path.join("/mnt/csae48d5df47deax41bcxbaa", "logs", "client_secrets.json")
+CLIENT_SECRETS_FILE = os.path.join("N:/project", "logs", "client_secrets.json")
 
 # This OAuth 2.0 access scope allows an application to upload files to the
 # authenticated user's YouTube channel, but doesn't allow other types of access.
@@ -73,7 +73,7 @@ https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
 VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
 
 
-def get_authenticated_service(args):
+def get_authenticated_service(args, auth_token_file=None):
   flow = flow_from_clientsecrets(CLIENT_SECRETS_FILE,
     scope=YOUTUBE_UPLOAD_SCOPE,
     message=MISSING_CLIENT_SECRETS_MESSAGE)
@@ -84,7 +84,7 @@ def get_authenticated_service(args):
   credentials = storage.get()
 
   if credentials is None or credentials.invalid:
-    credentials = run_flow(flow, storage, args)
+    credentials = run_flow(flow, storage, args, auth_token_file)
 
   return build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
     http=credentials.authorize(httplib2.Http()))
@@ -179,8 +179,11 @@ if __name__ == '__main__':
   argparser.add_argument("--keywords", help="Video keywords, comma separated",
     default="")
   argparser.add_argument("--privacyStatus", choices=VALID_PRIVACY_STATUSES,
-    default=VALID_PRIVACY_STATUSES[0], help="Video privacy status.")
+    default=VALID_PRIVACY_STATUSES[0], help="Video privacy status.")  
+  argparser.add_argument("--writeFile", 
+    default=None, help="File to write auth key to.")
   args = argparser.parse_args()
+  print(args)
   if not os.path.exists(args.file):    
     logging.error("Please specify a valid file using the --file= parameter.")
     exit("Please specify a valid file using the --file= parameter.")
