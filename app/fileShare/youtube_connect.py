@@ -16,7 +16,7 @@ def upload_video(id, title="Default title", description="Default Description", c
     video_privacy = PRIVACY_OPTIONS[privacy_status]
 
     os.system('python3 \
-        upload_video.py \
+        /home/sherpa-render/Flask-app/app/fileShare/upload_video.py \
         --file="{}" \
         --title="{}" \
         --description="{}" \
