@@ -55,16 +55,19 @@ def get_queue_status(proj_id):
         queue_loc = join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")
         with open(queue_loc) as json_file:
             json_data = load(json_file)
-            status = json_data['status']
+            #status = json_data['status']
+            logging.debug("File render status: {}".format(json_data['correctlyRendered']))
+            logging.debug("Info: {}".format(json_data['otherInfo']))
+            return json_data['correctlyRendered']
 
     
     except Exception as e:
         logging.debug(e)
         return -1
 
-    if status == True:
+"""    if status == True:
         logging.debug("Project has been rendered")
         return 1
     else:
         logging.debug("Project has not been rendered")
-        return 0
+        return 0"""

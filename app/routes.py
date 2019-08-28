@@ -27,17 +27,3 @@ class RenderVideoStatus(Resource):
         logging.debug("Querying for render status of '{}'".format(proj_id))
         queue_status = queue_service.get_queue_status(proj_id)
         return queue_status
-
-@app.route('/privacy')
-def show_privacy_statement():
-    return "This is our privacy statement"
-
-@app.route('/terms')
-def show_terms():
-    return "This is our terms"
-
-#@app.route('/youtubeauth')
-@api.route('/youtubeauth/<string:proj_id>')
-class UploadYoutube(Resource):
-    def get(self, proj_id):
-        return youtube_connect.upload_video(proj_id)
