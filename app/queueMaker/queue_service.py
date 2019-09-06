@@ -3,12 +3,9 @@ from json import dump, load
 from os.path import join
 from app import app
 import logging
-from app.fileShare import null_link
+
 
 def create_queue(proj_id, compressed_render, chunk_render):
-    # Null link in database
-    null_status = null_link.null_project_link(proj_id)
-    logging.debug("Null status: {}".format(null_status))
 
     # Define data points
     """
