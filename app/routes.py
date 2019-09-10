@@ -20,9 +20,11 @@ class RenderVideo(Resource):
         return queue_create
 
 
+@api.route('/renderstatus/<string:proj_id>&compressed_render=<int:compressed_render>')
 @api.route('/renderstatus/<string:proj_id>')
+@api.route('/renderstatus/<string:proj_id>&chunk_render=<int:chunk_render>')
 class RenderVideoStatus(Resource):
-    def get(self, proj_id):
+    def get(self, proj_id, compressed_render=0, chunk_render=0):
         logging.debug("Querying for render status of '{}'".format(proj_id))
-        queue_status = queue_service.get_queue_status(proj_id)
+        queue_status = queue_service.get_queue_status(proj_id, compressed_render, chunk_render)
         return queue_status
