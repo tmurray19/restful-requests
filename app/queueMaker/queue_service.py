@@ -23,13 +23,16 @@ def create_queue(proj_id, compressed_render, chunk_render):
         "dateRequested": datetime.now().strftime("%d-%b-%Y (%H:%M:%S)"),
         "dateCompleted": "TBA",
         "status": False,
-        "compressedRender": compress_bool,
-        "chunkRender": chunk_book,
         "otherInfo": "None"
     }
     try:
-        # Open and write to file
-        with open(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json"), 'w') as outfile:
+        render_type = "_full_"
+        if compress_bool:
+            render_type = "_preview_"
+        if chunk_book:
+            render_type = "_chunk_"
+        #render_type = "_chunk_" if chunk_bool 
+        with open(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + render_type + "_queue_status.json"), 'w') as outfile:
             dump(queue_info, outfile)
     
         logging.debug("Queue file written to {}".format(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + "_queue_status.json")))
