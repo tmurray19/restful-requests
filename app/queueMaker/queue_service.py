@@ -60,11 +60,3 @@ def get_queue_status(proj_id):
     except Exception as e:
         logging.debug(e)
         return -1
-
-    """    
-    if status == True:
-        logging.debug("Project has been rendered")
-        return 1
-    else:
-        logging.debug("Project has not been rendered")
-        return 0"""
