@@ -1,6 +1,6 @@
 from datetime import datetime
 from json import dump, load
-from os.path import join
+from os.path import join, exists
 from app import app
 import logging
 
@@ -23,6 +23,7 @@ def create_queue(proj_id, compressed_render, chunk_render):
         "dateRequested": datetime.now().strftime("%d-%b-%Y (%H:%M:%S)"),
         "dateCompleted": "TBA",
         "status": False,
+        "firstTime": True,
         "otherInfo": "None"
     }
     try:
@@ -31,7 +32,10 @@ def create_queue(proj_id, compressed_render, chunk_render):
             render_type = "_preview_"
         if chunk_book:
             render_type = "_chunk_"
-        #render_type = "_chunk_" if chunk_bool 
+        if exists(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + render_type + "queue_status.json")):
+            queue_info['firstTime'] = False
+        logging.debug(queue_info)
+        print(queue_info)
         with open(join(app.config['BASE_DIR'], app.config['QUEUE_FOLDER'], proj_id + render_type + "queue_status.json"), 'w') as outfile:
             dump(queue_info, outfile)
     
