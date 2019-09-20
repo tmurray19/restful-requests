@@ -7,6 +7,9 @@ import logging
 
 def create_queue(proj_id, compressed_render, chunk_render):
 
+    if proj_id.startswith('&'):
+        proj_id = proj_id.split('=')[-1]
+
     # Define data points
     """
     ID: int --> Project ID
