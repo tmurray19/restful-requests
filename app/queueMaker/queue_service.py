@@ -8,8 +8,8 @@ import logging
 def create_queue(proj_id, compressed_render, chunk_render):
 
     if proj_id.startswith('&'):
+        chunk_render=1
         proj_id = proj_id.split('=')[-1]
-
         proj_id = proj_id[1:]
 
     # Define data points
